@@ -1,0 +1,48 @@
+---
+import ProseCv from "../components/Prose_cv.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Resume";
+const description = "Erfi Anugrah's CV";
+const site_name = "stoicopa";
+import { getEntry } from "astro:content";
+const entry = await getEntry("cv", "resume");
+const { Content } = await entry.render();
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  site_name={site_name}
+  is404Page={false}
+>
+  <div class="cv-container">
+    <ProseCv>
+      <Content />
+    </ProseCv>
+  </div>
+</BaseLayout>
+
+<style>
+  .cv-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+  .button-container {
+    margin-top: 2rem;
+  }
+  .pdf-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .pdf-button:hover {
+    background-color: #0056b3;
+  }
+</style>
