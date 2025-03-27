@@ -6,11 +6,11 @@ import { getImage } from "astro:assets";
 const { is404Page = false } = Astro.props; // Get the prop from Astro.props
 
 const favicon_avif = await getImage({
-  src: "https://cdn.erfianugrah.com/ea_favicon.png",
+  src: "/public/logo.png",
   alt: "favicon",
   // inferSize: true,
-  width: "400",
-  height: "400",
+  width: "800",
+  height: "200",
   decoding: "async",
   format: "avif"
 });
@@ -28,8 +28,8 @@ const favicon_avif = await getImage({
               class="favicon absolute left-0 dark:invert -mt-[15px]"
               src={favicon_avif.src}
               alt="Home"
-              width="30px"
-              height="30px"
+              width="120px"
+              height="20px"
             />
           </a>
         </div>

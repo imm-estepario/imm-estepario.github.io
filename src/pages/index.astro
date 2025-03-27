@@ -1,41 +1,177 @@
 ---
-import Homepage from "../components/Homepage.astro";
-const { pageTitle } = Astro.props;
-import { getCollection } from "astro:content";
-const collections = ['long_form', 'short_form', 'muses', 'zeitweilig'];
-import { getImage } from 'astro:assets'; // Add all your collections here
-let allImages = [];
-let allAlts = [];
-let allUrls = [];
-for (let collection of collections) {
- const allContent = await getCollection(collection);
- const postsWithImages = allContent.filter(post => post.data.image?.src && post.data.image?.alt);
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/glightbox.css";
+import Prose from "../components/Prose.astro";
+import { getImage } from "astro:assets";
+import MasonryLayout from '../components/Masonry.astro';
+const updatedDate = "testUpdateDate"
+const publishedDate = "testPublishedDate"
+const title = "Estepario";
+const description = "testDescription"
+const authorFullName = "Ivan Monrroy"
+const author = "Ivan Monrroy"
+const image = "/pictures/collection-misc-2024/03%20marzo%2024.jpg"
+const alt = "testimagealt"
+const positionx = "40%"
+const positiony = "50%"
+let baseUrl = new URL(Astro.request.url).origin;
 
- const imagePromises = postsWithImages.map(async post => {
-   const imageAsset = await getImage({
-     src: post.data.image.src,
-     alt: post.data.image.alt,
-    //  inferSize: true,
-     width: "1920",
-     height: "1080",
-     decoding: "async",
-     format: "avif",
-     quality: "65"
-   });
+const backgroundImage = image
+  ? await getImage({
+      src: image,
+      alt: alt,
+      width: "3840",
+      height: "2160",
+      decoding: "async",
+      format: "avif",
+    })
+  : null;
 
-   return {
-     imageSrc: imageAsset ? imageAsset.src : null,
-     alt: post.data.image.alt,
-     url: `/${collection}/${post.slug}`
-   };
- });
+const mobileBackgroundImage = image
+  ? await getImage({
+      src: image,
+      alt: alt,
+      width: "1920",
+      height: "1080",
+      decoding: "async",
+      format: "avif",
+      quality: "65",
+    })
+  : null;
 
- const results = await Promise.all(imagePromises);
-
- allImages.push(...results.map(result => result.imageSrc));
- allAlts.push(...results.map(result => result.alt));
- allUrls.push(...results.map(result => result.url));
-}
+const metaImage = image
+  ? await getImage({
+      src: image,
+      alt: alt,
+      width: "1280",
+      height: "720",
+      decoding: "async",
+      format: "webp",
+      loading: "lazy",
+    })
+  : null;
 ---
 
-{allImages.length > 0 ? <Homepage title={pageTitle} images={JSON.stringify(allImages)} alt={JSON.stringify(allAlts)} urls={JSON.stringify(allUrls)}  width="1920" height="1080" /> : <p>No images found</p>}
+<BaseLayout
+  title={title}
+  image={image ? `${baseUrl}${metaImage?.src}` : ""}
+  alt={alt ? metaImage?.attributes.alt : ""}
+  description={description}
+  author={author}
+  pubDate={updatedDate}
+  updatedDate={publishedDate}
+  is404Page={false}
+>
+    <div
+        id="backgroundImageElement"
+        class="bg-fixed bg-center-33 bg-cover bg-no-repeat flex flex-col justify-center items-center text-center h-screen mb-8 md:-mx-16 -mx-8"
+        style={`--mobile-background-image: url(${mobileBackgroundImage.src}); --background-image: url(${backgroundImage.src}); --position-x: ${positionx}; --position-y: ${positiony};`}
+        data-pagefind-body
+    >
+    <h1 class="prose prose-slate uppercase font-overpass-mono text-[rgb(245,245,245)] text-4xl fade-in-up delay-150">
+        {title}
+    </h1>
+    </div>
+
+    <div data-pagefind-body>
+        <Prose>
+            <em>1 min read</em>
+            <br><br>
+            In most senses of the word - places that I have been to over the years. Places that I have not really stopped to think about, and have just passed by.
+            <br>
+            <hr>
+            <br>
+    <MasonryLayout images={[
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/01 enero.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/02 febrero.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/03 marzo.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/04 abril.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/05 mayo.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/06 junio.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/07 julio.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/08 agosto.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/09 septiembre.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/10 octubre.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/11 noviembre.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2023/12 Diciembre.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/01 enero 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/02 febrero 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/03 marzo 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/04 abril 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/05 mayo 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/06 junio 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/07 Julio 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/08 agosto 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/09 septiembre 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/10 octubre 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/11 noviembre 24.jpg", alt: "hypnagogia 1" },
+        { src: "https://imm-estepario.github.io/public/pictures/collection-misc-2024/12 diciembre.jpg", alt: "hypnagogia 1" },
+    ]} />
+      <div class="flex flex-col sm:flex-row align-center">
+        <div class="w-full flex-col sm:w-1/2 text-center sm:text-left">
+          <p>
+            -- <a
+              href={`/authors/${author}`}
+              class="no-underline font-inconsolata"
+            >
+              {authorFullName}</a
+            >
+          </p>
+        </div>
+      </div>
+    </Prose>
+  </div>
+</BaseLayout>
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-600 {
+    animation-delay: 600ms;
+  }
+
+  #backgroundImageElement {
+    background-image: var(--mobile-background-image);
+    background-position: var(--position-x, 45%) var(--position-y, 50%);
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  @media (min-width: 800px) {
+    #backgroundImageElement {
+      background-image: var(--background-image);
+      background-position: var(--position-x, 30%) var(--position-y, 50%);
+    }
+  }
+</style>
