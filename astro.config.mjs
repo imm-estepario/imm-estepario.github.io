@@ -9,9 +9,9 @@ import { remarkReadingTime } from './src/scripts/remark-reading-time.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.erfianugrah.com',
+  site: 'https://imm-estepario.github.io',
   image: {
-    domains: ['erfianugrah.com', 'cdn.erfianugrah.com'],
+    domains: ['imm-estepario.github.io'],
     service: {
       entrypoint: 'astro/assets/services/sharp',
       config: {

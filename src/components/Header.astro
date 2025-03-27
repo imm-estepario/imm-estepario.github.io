@@ -6,7 +6,7 @@ import { getImage } from "astro:assets";
 const { is404Page = false } = Astro.props; // Get the prop from Astro.props
 
 const favicon_avif = await getImage({
-  src: "/public/logo.png",
+  src: "/logo.png",
   alt: "favicon",
   // inferSize: true,
   width: "800",
