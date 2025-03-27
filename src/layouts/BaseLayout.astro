@@ -7,9 +7,9 @@ import "@fontsource-variable/inconsolata";
 import { getImage } from "astro:assets";
 let baseUrl = new URL(Astro.request.url).origin;
 const metaImage = await getImage({
-  src: "https://imm-estepario.github.io/public/logo2rond.png",
+  src: "/logo2rond.png",
   alt: "cover_image",
-  inferSize: true,
+  width: "720",
   height: "720",
   decoding: "async",
   format: "webp",
@@ -17,9 +17,9 @@ const metaImage = await getImage({
 });
 
 const favicon_webp = await getImage({
-  src: "https://imm-estepario.github.io/public/logo2rond.png",
+  src: "/logo2rond.png",
   alt: "favicon",
-  inferSize: true,
+  width: "400",
   height: "400",
   decoding: "async",
   format: "webp",
