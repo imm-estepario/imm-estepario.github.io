@@ -17,7 +17,7 @@ for (const post of allContent) {
       const imageAsset = await getImage({
         src: post.data.image?.src,
         alt: post.data.image?.alt,
-        inferSize: true,
+        width: "1080",
         height: "1080",
         decoding: "async",
         format: "avif",
