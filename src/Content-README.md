@@ -22,7 +22,7 @@ description: It started with an idea or rather an intention to create something 
 The objects are passed to:
 
 ```
-const short_form = defineCollection({
+const colecciones = defineCollection({
   type: "content", // v2.5.0 and later
   schema: z.object({
     title: z.string(),

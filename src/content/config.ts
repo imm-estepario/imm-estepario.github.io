@@ -20,7 +20,7 @@ const muses = defineCollection({
   }),
 });
 
-const short_form = defineCollection({
+const colecciones = defineCollection({
   type: "content", // v2.5.0 and later
   schema: z.object({
     title: z.string(),
@@ -94,4 +94,4 @@ const authors = defineCollection({
 
 
 // 3. Export a single `collections` object to register your collection(s)
-export const collections = { muses, short_form, long_form, zeitweilig, authors };
+export const collections = { muses, colecciones, long_form, zeitweilig, authors };

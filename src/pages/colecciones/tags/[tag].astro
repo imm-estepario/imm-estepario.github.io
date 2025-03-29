@@ -4,7 +4,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogPost from "../../../components/BlogPost.astro";
 import { sortByDate } from "../../../components/sortbydate";
 export async function getStaticPaths() {
-  const allShortForm = await getCollection("short_form");
+  const allShortForm = await getCollection("colecciones");
   const uniqueTags = [
     ...new Set(allShortForm.map((post) => post.data.tags).flat()),
   ];
@@ -28,7 +28,7 @@ const { posts } = Astro.props;
       {
         posts.sort(sortByDate).map((post) => (
           <BlogPost
-              url={`/short_form/${post.slug}/`}
+              url={`/colecciones/${post.slug}/`}
               image={post.data?.image?.src || ''}
               alt={post.data?.image?.alt || ''}
               title={post.data?.title || ''}
