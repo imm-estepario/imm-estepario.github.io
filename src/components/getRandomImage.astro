@@ -4,8 +4,12 @@ const { images, alt, url, tag, width, height } = Astro.props;
 <div id="randomimage" class="relative group border-0" data-images={images} data-alt={alt} data-width={width} data-height={height} >
  <a href={url} >
     <img class="hidden w-full sm:h-[540px] xl:h-[1080px] lg:h-[720px] object-cover object-center " style="object-position: 40% 35%;" />
-    <p class="absolute inset-0 flex items-center justify-center text-[rgb(245,245,245)] text-2xl xl:text-4xl">
-      {tag}
+    <p class="absolute inset-0 flex items-center justify-center text-[rgb(245,245,245)] text-2xl xl:text-4xl ">
+      <button
+        class="bg-slate-600 text-[rgb(245,245,245)] bg-opacity-50 px-2 py-1 rounded"
+      >
+        {tag}
+    </button>
     </p>
   </a>
    <slot />
